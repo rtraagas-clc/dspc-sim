@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>LATEST | The Central Scholar </title>
+    <meta name="description" content="The Central Scholar is the official english-language school publication of the Philippine Science High School - Central Luzon Campus">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/imageRevealHover.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/spacing.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+
+    <div class="inputs" style="padding: 30px;">
+        <h1>Generate post</h1>
+        <input id="title" placeholder="TITLE" style="width: 60%; display:block;background: none; padding: 10px;height: 50px;font-size: 25px;border-radius: 10px;margin-top:30px" type="\">
+        <div style="margin-top: 20px;">
+            <select id="author" style="width: 60%; display:block;background: none; padding: 10px;height: 50px;font-size: 25px;border-radius: 10px;margin-top:30px" name="author">
+                <option>Author</option>
+                <option value="raagas">Raagas</option>
+                <option value="regencia">Regencia</option>
+                <option value="angeles">Angeles</option>
+                <option value="canto">Canto</option>
+                <option value="mesia">Mesia</option>
+            </select>
+        </div>
+        <div style="margin-top: 20px;">
+            <select id="category" style="width: 60%; display:block;background: none; padding: 10px;height: 50px;font-size: 25px;border-radius: 10px;margin-top:30px" name="author">
+                <option>Category</option>
+                <option value="news">News</option>
+                <option value="feature">Feature</option>
+                <option value="opinion">Opinion</option>
+                <option value="sports">Sports</option>
+            </select>
+        </div>
+        <textarea id="body" placeholder="ARTICLE BODY" style="width: 60%; display:block;background: none; padding: 10px; min-height: 150px;border-radius: 10px;margin-top:30px" type="text"></textarea>
+        <div style="margin-top: 20px;">
+            <input type="checkbox" id="withImage" name="withImage" value="withImage">
+            <label for="withImage">With Image?</label><br> <input type="text" id="imgFileName" placeholder="File name">
+        </div>
+        <input id="" placeholder="" style="width: 60%; display:block;background: none; padding: 10px;height: 50px;font-size: 25px;border-radius: 10px;margin-top:30px" type="text">
+        <input id="" placeholder="" style="width: 60%; display:block;background: none; padding: 10px;height: 50px;font-size: 25px;border-radius: 10px;margin-top:30px" type="text">
+        <input id="" placeholder="" style="width: 60%; display:block;background: none; padding: 10px;height: 50px;font-size: 25px;border-radius: 10px;margin-top:30px" type="text">
+        <button class="button button-primary" onclick="generate()">generate</button>
+
+    </div>
+    <div class="results" style="padding: 30px">
+        <h3>Results</h3>
+        <div id="db-entry">cum</div>
+    </div>
+
+
+    <!-- JS here -->
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/fileSaver.min.js"></script>
+    <script src="assets/js/generateFile.js"></script>
+    <script>
+
+        function generate(){
+            var names = {
+                raagas: 'Rephael Raagas',
+                regencia: 'Yuan Regencia',
+                angeles: 'Gabe Angeles',
+                canto: 'Kurt Canto',
+                mesia: 'Matthew Mesia'
+            }
+            var post = {
+                category: document.getElementById('category').value,
+                title: document.getElementById('title').value,
+                href: '',
+                filename: '',
+                img: '',
+                date: 'may 6, 2023', 
+                authorLast: document.getElementById('author').value,
+                author: '',
+                authorDescription: '',
+                description: '',
+                page: '',
+                body: '',
+                paragraph: ''
+            }
+
+            if(document.getElementById('withImage').checked){
+                post.img = document.getElementById('imgFileName').value
+            }
+            post.author = names[post.authorLast]
+
+            post.body = document.getElementById('body').value.split('\n\n')
+            for(p of post.body){
+                post.paragraph += `<p>${p}</p>\n`
+            }
+            console.log(post.body, post.paragraph)
+            
+            if(post.authorLast == 'raagas'){
+                post.authorDescription = "Hi! I’m Yael, the current Editor-in-Chief of The Central Scholar. I write about a variety of topics, mainly in features. I developed this site to broaden the reach of our work, and I hope that you enjoy reading through our content.\nFor our country and her people, always.";
+            }
+            if(post.authorLast == 'regencia'){
+                post.authorDescription = "I’m Yuan, the only one, the number one news writer for The Central Scholar. When I’m not staying on top of the latest news, I like to spend my time organizing my things."
+            }
+            if(post.authorLast == 'canto'){
+                post.authorDescription = "I am a Grade 10 editorial writer at The Central Scholar. In my time not writing articles, I enjoy reading literary magazines and essay collections. I have a particular affinity for contemporary issues, foreign affairs, and philosophy."
+            }
+            if(post.authorLast == 'angeles'){
+                post.authorDescription = "Hi, I’m Gabe Angeles and I am the sports writer for The Central Scholar. I write sports news, features, and editorials that not only cover sporting events, but also emphasize on stories and truths that transcend and affect us beyond the game."
+            }
+            if(post.authorLast == 'mesia'){
+                post.authorDescription = "Hi! I’m Matt, the Editorial Cartoonist and Photojournalist at The Central Scholar. Press Freedom is my second favorite kind of freedom!"
+            }
+            
+            post.description = post.body[0]
+
+            post.href = `${post.category}_${post.title.toLowerCase().replace(/[^\w\s\']|_/g, "").replace(/\s+/g, " ").replaceAll(' ', '-')}`
+            post.filename = post.href + '.html';
+            
+            console.log(post)
+
+            var img = post.img != '' ? `<div class="latest__post-thumb tgImage__hover">
+                    <a href="${post.href}.html"><img src="assets/img/covers/${post.img}" alt="${post.title}"></a>
+                    </div>` : ''
+            
+            var code = `<div class="latest__post-item">${img}<div class="latest__post-content"><ul class="tgbanner__content-meta list-wrap"><li class="category"><a href="${post.category}.html">${post.category}</a></li><li><span class="by">By</span> ${post.author}</li><li>${post.date}</li></ul><h3 class="title tgcommon__hover"><a href="${post.href}.html">${post.title}</a></h3><p>${post.description}</p><div class="latest__post-read-more"><a href="${post.href}.html">Read More <i class="far fa-long-arrow-right"></i></a></div></div></div>`
+            console.log(code)
+            document.getElementById('db-entry').innerText = code;
+            
+
+    
+            generateFile(post)
+        }
+    </script>
+</body>
+
+</html>
